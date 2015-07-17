@@ -18,11 +18,11 @@ Demo
 Building
 --------
 To compile wombat:
-$ ./gradlew build
+$ ./gradlew build fatJar
 
 To build the docker quickstart images:
 $ docker build -f replicator/Dockerfile.quickstart  -t wombat-quickstart replicator
-$ docker build -t mariadb-quickstart mariadb-wombat-quickstart
+$ docker build -t mariadb-quickstart mariadb-quickstart
 
 Runtime requirements
 --------------------
@@ -38,10 +38,10 @@ The easiest way to start playing with Wombat is to use the pre-built and pre-con
 
   $ docker run -d --name zookeeper --hostname zookeeper confluent/zookeeper
   $ docker run -d --name kafka --hostname kafka --link zookeeper:zookeeper --env KAFKA_LOG_CLEANUP_POLICY=compact confluent/kafka
-  $ docker run -d --name mariadb mariadb-wombat-quickstart
+  $ docker run -d --name mariadb mariadb-quickstart
 
   # run wombat
-  $ docker run --rm -it --link kafka:kafka --link zookeeper:zookeeper --link mariadb:mariadb --name wombat wombat-replicator-quickstart
+  $ docker run --rm -it --link kafka:kafka --link zookeeper:zookeeper --link mariadb:mariadb --name wombat wombat-quickstart
 
   # interact. consume from kafka.
   $ docker run -it --rm --link zookeeper:zookeeper --link kafka:kafka confluent/tools /bin/bash -c '/usr/bin/kafka-console-consumer --zookeeper ${ZOOKEEPER_PORT_2181_TCP_ADDR}:${ZOOKEEPER_PORT_2181_TCP_PORT} --topic prefix.test.users --property print.key=true --from-beginning'
